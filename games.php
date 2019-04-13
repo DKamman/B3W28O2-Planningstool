@@ -47,11 +47,56 @@ $querycount->execute();
     include "inc/navbar.html";
      ?>
 
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4">Fluid jumbotron</h1>
-      <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  <!-- <div class="container-fluid center">
+    <div class="row">
+    <?php
+    //foreach ($result as $row) {
+    ?>
+    <div class="card" style="width: 18rem;">
+      <img src="img/<?php// echo $row['image']?>" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"><?php// echo $row['name']?></h5>
+        <p class="card-text"><?php// echo $row['description']?></p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
     </div>
+    <?php
+    //}
+    ?>
+  </div>
+</div> -->
+
+  <div class="container-fluid">
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Expansions</th>
+        <th>Skills</th>
+        <th>Min. Players</th>
+        <th>Max. Players</th>
+        <th>Play Duration</th>
+        <th>Explain Duration</th>
+      </tr>
+      <?php
+      foreach ($result as $row) {
+      ?>
+      <tr>
+        <td><?php echo $row['name']?></td>
+        <td><img src="img/<?php echo $row['image']?>" style="width:10em; height:10em;"></td>
+        <td><?php echo $row['description']?></td>
+        <td><?php echo $row['expansions']?></td>
+        <td><?php echo $row['skills']?></td>
+        <td><?php echo $row['min_players']?></td>
+        <td><?php echo $row['max_players']?></td>
+        <td><?php echo $row['play_minutes']?>min</td>
+        <td><?php echo $row['explain_minutes']?>min</td>
+      </tr>
+      <?php
+      }
+      ?>
+    </table>
   </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
