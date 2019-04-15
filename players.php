@@ -17,16 +17,12 @@ catch(PDOException $e)
   //echo "Connection failed: " . $e->getMessage();
 }
 
-$sql = 'SELECT * FROM games';
+$sql = 'SELECT * FROM players';
 $query = $conn->prepare($sql);
 $query->execute();
 
 $result = $query->fetchAll();
 // var_dump($result);
-
-$count = 'SELECT COUNT(id) FROM games';
-$querycount = $conn->prepare($count);
-$querycount->execute();
 
 ?>
 
@@ -38,7 +34,7 @@ $querycount->execute();
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Planningtool</title>
+    <title>Players</title>
   </head>
   <body>
     <?php
@@ -46,6 +42,25 @@ $querycount->execute();
     ?>
 
     <p>This is the players page</p>
+
+    <div class="container-fluid">
+      <table border="1">
+        <tr class="text-center">
+          <th>Name</th>
+          <th>Age</th>
+        </tr>
+        <?php
+        foreach ($result as $row) {
+        ?>
+        <tr>
+          <td><?php echo $row['name']?></td>
+          <td><?php echo $row['age']?></td>
+        </tr>
+        <?php
+        }
+        ?>
+      </table>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

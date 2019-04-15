@@ -24,9 +24,19 @@ $query->execute();
 $result = $query->fetchAll();
 // var_dump($result);
 
-$count = 'SELECT COUNT(id) FROM games';
-$querycount = $conn->prepare($count);
-$querycount->execute();
+
+$sql2 = 'SELECT * FROM players';
+$query2 = $conn->prepare($sql2);
+$query2->execute();
+
+$result2 = $query2->fetchAll();
+
+
+$sql3 = 'SELECT * FROM presentors';
+$query3 = $conn->prepare($sql3);
+$query3->execute();
+
+$result3 = $query3->fetchAll();
 
 ?>
 
@@ -49,9 +59,68 @@ $querycount->execute();
 
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">Fluid jumbotron</h1>
-      <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+      <h1 class="display-4 text-center">Planningtool</h1>
+      <p class="lead">Hier kunt u de planning maken.
+        Wilt u uitgebreidere informatie over de te kiezen games, spelers en presentators?
+        Klikt u dan op de bovenstaande knop genaamd "Content".
+        De link "Content Creator", onder: "Content", brengt u naar een pagina waar u zelf
+        Games, Spelers en Presentators kunt toevoegen.</p>
     </div>
+  </div>
+
+  <div class="container-fluid">
+    <table border="1" class="text-center">
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Games</th>
+        <th>Players</th>
+        <th>Presentors</th>
+      </tr>
+      <?php
+      foreach ($result as $row) {
+      ?>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <select name="games">
+            <?php
+            foreach ($result as $row) {
+            ?>
+            <option value="<?php echo $row['name']?>" ><?php echo $row['name']?></option>
+            <?php
+           }
+           ?>
+          </select>
+        </td>
+        <td>
+          <select name="players">
+            <?php
+            foreach ($result2 as $row) {
+            ?>
+            <option value="<?php echo $row['name']?>" ><?php echo $row['name']?></option>
+            <?php
+           }
+           ?>
+          </select>
+        </td>
+        <td>
+          <select name="presentors">
+            <?php
+            foreach ($result3 as $row) {
+            ?>
+            <option value="<?php echo $row['name']?>" ><?php echo $row['name']?></option>
+            <?php
+           }
+           ?>
+          </select>
+        </td>
+      </tr>
+      <?php
+      }
+      ?>
+    </table>
   </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
