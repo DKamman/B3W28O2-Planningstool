@@ -57,7 +57,7 @@ $result3 = $query3->fetchAll();
     include "inc/navbar.html";
      ?>
 
-  <div class="jumbotron jumbotron-fluid">
+  <div class="jumbotron jumbotron-fluid" style="height:225px; padding-top:24px;">
     <div class="container">
       <h1 class="display-4 text-center">Planningtool</h1>
       <p class="lead">Hier kunt u de planning maken.
@@ -68,21 +68,18 @@ $result3 = $query3->fetchAll();
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container">
     <table border="1" class="text-center">
       <tr>
-        <th>Start Time</th>
-        <th>End Time</th>
         <th>Games</th>
-        <th>Players</th>
-        <th>Presentors</th>
+        <th>Start Time</th>
+        <th>Duration</th>
+        <th>Presentor</th>
       </tr>
       <?php
       foreach ($result as $row) {
       ?>
       <tr>
-        <td></td>
-        <td></td>
         <td>
           <select name="games">
             <?php
@@ -95,15 +92,10 @@ $result3 = $query3->fetchAll();
           </select>
         </td>
         <td>
-          <select name="players">
-            <?php
-            foreach ($result2 as $row) {
-            ?>
-            <option value="<?php echo $row['name']?>" ><?php echo $row['name']?></option>
-            <?php
-           }
-           ?>
-          </select>
+
+        </td>
+        <td>
+
         </td>
         <td>
           <select name="presentors">
@@ -115,6 +107,9 @@ $result3 = $query3->fetchAll();
            }
            ?>
           </select>
+        </td>
+        <td>
+
         </td>
       </tr>
       <?php
