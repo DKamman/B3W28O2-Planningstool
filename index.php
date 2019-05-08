@@ -81,11 +81,10 @@ $result3 = $query3->fetchAll();
       ?>
       <tr>
         <td><?php echo $row['']?></td>
-        <td></td>
+        <td><?php echo $row['']?></td>
+        <td><?php echo $row['']?> min</td>
         <td><?php echo $row['']?></td>
         <td><?php echo $row['']?></td>
-        <td><?php echo $row['']?>min</td>
-        <td><?php echo $row['']?>min</td>
       </tr>
       <?php
       }

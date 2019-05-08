@@ -30,7 +30,11 @@ $query2->execute();
 
 $result2 = $query2->fetchAll();
 
-function insert(){
+function insertgame(){
+  echo 'hello world';
+}
+
+function insertplayer(){
 
 }
 
@@ -58,9 +62,9 @@ function insert(){
        <div class="row">
          <div class="col-md">
            <h2 class="text-center">Add a game</h2>
-           <form class="" action="index.html" method="post">
+           <form class="" action="cc.php" method="post">
             Name <input class="d-block" type="text" name="name" placeholder="Name of the game" style="margin-bottom: 10px;">
-            Play duration <select class="d-block" name="play_minutes" style="margin-bottom: 10px;">
+            Play duration (in minutes) <select class="d-block" name="play_minutes" style="margin-bottom: 10px;">
               <?php
               for ($i=5; $i <= 60; $i++) {
                ?>
@@ -69,7 +73,7 @@ function insert(){
               }
               ?>
               </select>
-            Explain duration <select class="d-block" name="explain_minutes" style="margin-bottom: 10px;">
+            Explain duration (in minutes) <select class="d-block" name="explain_minutes" style="margin-bottom: 10px;">
               <?php
               for ($i=5; $i <= 60; $i++) {
                ?>
@@ -97,7 +101,7 @@ function insert(){
               ?>
             </select>
             Description <textarea class="d-block" name="description" rows="7" cols="40" placeholder="Description of the game" style="margin-bottom: 10px;"></textarea>
-            <input type="submit" value="Submit Game">
+            <input onclick="insertgame();" type="submit" value="Submit Game">
            </form>
          </div>
 <!-- insert game ends -->
@@ -105,7 +109,7 @@ function insert(){
 <!-- insert player begins -->
          <div class="col-md">
            <h2 class="text-center">Add a player</h2>
-           <form class="" action="index.html" method="post">
+           <form class="" action="cc.php" method="post">
              Name <input class="d-block" type="text" name="name" value="" placeholder="Name of the player" style="margin-bottom: 10px;">
              Age <select class="d-block" name="" style="margin-bottom: 10px;">
                <?php
@@ -116,7 +120,7 @@ function insert(){
                 }
                 ?>
               </select>
-              <input type="submit" value="Submit player">
+              <input onclick="insertplayer();" type="submit" value="Submit player">
             </form>
          </div>
 <!-- insert player ends -->

@@ -85,22 +85,32 @@ $result2 = $query2->fetchAll();
           <p><?php echo $result['min_players'];?></p>
         </div>
         <div class="col-3">
-          <h3>max players</h3>
+          <h3>Max players</h3>
           <p><?php echo $result['max_players'];?></p>
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="margin-left:0.1em;">
         <div class="col-" class="col-" style="width:100px; margin:1em 1em 0 0;">
 
         </div>
-        <div class="col-3">
+        <!-- <div class="col-3"> -->
           <form action="index.html" method="post">
-            <div><input type="text" name="chosenplayer" value=""></div>
-            <div><input type="time" name="chosentime" value=""></div>
-            <div><select class="" name="chosenpresenter"></div>
-            </select>
+            <div style="margin-top:1em;">Kies de spelers <input style="float:right;" type="text" name="chosenplayer" value=""></div>
+            <div style="margin-top:1em;">Vul in een start tijd <input style="float:right;" type="time" name="chosentime" value=""></div>
+            <div style="margin-top:1em;">Kies een presentator <select style="float:right;" class="" name="chosenpresenter">
+                 <?php
+                 foreach ($result2 as $row) {
+                 ?>
+                 <option value=""><?php echo $row['name']?></option>
+                 <?php
+                 }
+                 ?>
+                 </select>
+            </div>
+            <button onclick="location.href='games.php'" type="button" name="button">Cancel</button>
+            <input type="submit" name="" value="Save">
           </form>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
 
