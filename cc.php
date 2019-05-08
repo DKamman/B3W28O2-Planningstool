@@ -30,12 +30,9 @@ $query2->execute();
 
 $result2 = $query2->fetchAll();
 
+function insert(){
 
-$sql3 = 'SELECT * FROM presentors';
-$query3 = $conn->prepare($sql3);
-$query3->execute();
-
-$result3 = $query3->fetchAll();
+}
 
 ?>
 
@@ -56,13 +53,32 @@ $result3 = $query3->fetchAll();
     include "inc/navbar.html";
      ?>
 
+<!--insert game begins -->
      <div class="container">
        <div class="row">
          <div class="col-md">
            <h2 class="text-center">Add a game</h2>
-           <form class="" action="index.html" method="get">
-            Name <input class="d-block" type="text" name="name" value="" placeholder="Name of the game" style="margin-bottom: 10px;">
-            Min. Players<select class="d-block" name="" style="margin-bottom: 10px;">
+           <form class="" action="index.html" method="post">
+            Name <input class="d-block" type="text" name="name" placeholder="Name of the game" style="margin-bottom: 10px;">
+            Play duration <select class="d-block" name="play_minutes" style="margin-bottom: 10px;">
+              <?php
+              for ($i=5; $i <= 60; $i++) {
+               ?>
+              <option value=""><?php echo $i?></option>
+              <?php
+              }
+              ?>
+              </select>
+            Explain duration <select class="d-block" name="explain_minutes" style="margin-bottom: 10px;">
+              <?php
+              for ($i=5; $i <= 60; $i++) {
+               ?>
+              <option value=""><?php echo $i?></option>
+              <?php
+              }
+              ?>
+              </select>
+            Min. players<select class="d-block" name="min_players" style="margin-bottom: 10px;">
               <?php
               for ($i=1; $i <= 99; $i++) {
                ?>
@@ -71,7 +87,7 @@ $result3 = $query3->fetchAll();
               }
               ?>
             </select>
-            Max. Players<select class="d-block" name="" style="margin-bottom: 10px;">
+            Max. Players<select class="d-block" name="max_players" style="margin-bottom: 10px;">
               <?php
               for ($i=1; $i <= 99; $i++) {
                ?>
@@ -80,11 +96,13 @@ $result3 = $query3->fetchAll();
               }
               ?>
             </select>
-            Description <textarea class="d-block" name="description" rows="7" cols="40" placeholder="Short description" style="margin-bottom: 10px;"></textarea>
-            <input type="submit">
+            Description <textarea class="d-block" name="description" rows="7" cols="40" placeholder="Description of the game" style="margin-bottom: 10px;"></textarea>
+            <input type="submit" value="Submit Game">
            </form>
          </div>
+<!-- insert game ends -->
 
+<!-- insert player begins -->
          <div class="col-md">
            <h2 class="text-center">Add a player</h2>
            <form class="" action="index.html" method="post">
@@ -98,28 +116,10 @@ $result3 = $query3->fetchAll();
                 }
                 ?>
               </select>
-              <input type="submit">
+              <input type="submit" value="Submit player">
             </form>
          </div>
-
-         <div class="col-md">
-           <h2 class="text-center">Add a presentor</h2>
-           <form class="" action="index.html" method="post">
-             Name <input class="d-block" type="text" name="name" value="" placeholder="Name of the presentor" style="margin-bottom: 10px;">
-             Age <select class="d-block" name="" style="margin-bottom: 10px;">
-               <?php
-               for ($i=18; $i <= 99; $i++) {
-                 ?>
-                 <option value=""><?php echo $i?></option>
-                 <?php
-               }
-               ?>
-             </select>
-            <input type="submit">
-           </form>
-         </div>
-       </div>
-     </div>
+<!-- insert player ends -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -83,7 +83,7 @@ $querycount->execute();
       foreach ($result as $row) {
       ?>
       <tr>
-        <td><?php echo $row['name']?></td>
+        <td><a href="addevent.php?gameid=<?= $row['id']?>"><?php echo $row['name']?></td>
         <td><img src="img/<?php echo $row['image']?>" style="width:10em; height:10em;"></td>
         <td><?php echo $row['description']?></td>
         <td><?php echo $row['expansions']?></td>

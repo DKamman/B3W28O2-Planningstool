@@ -31,8 +31,7 @@ $query2->execute();
 
 $result2 = $query2->fetchAll();
 
-
-$sql3 = 'SELECT * FROM presentors';
+$sql3 = 'SELECT * FROM planning';
 $query3 = $conn->prepare($sql3);
 $query3->execute();
 
@@ -71,46 +70,22 @@ $result3 = $query3->fetchAll();
   <div class="container">
     <table border="1" class="text-center">
       <tr>
-        <th>Games</th>
+        <th>Game</th>
         <th>Start Time</th>
         <th>Duration</th>
+        <th>Players</th>
         <th>Presentor</th>
       </tr>
       <?php
-      foreach ($result as $row) {
+      foreach ($result3 as $row) {
       ?>
       <tr>
-        <td>
-          <select name="games">
-            <?php
-            foreach ($result as $row) {
-            ?>
-            <option value="<?php echo $row['name']?>" ><?php echo $row['name']?></option>
-            <?php
-           }
-           ?>
-          </select>
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-        <td>
-          <select name="presentors">
-            <?php
-            foreach ($result3 as $row) {
-            ?>
-            <option value="<?php echo $row['name']?>" ><?php echo $row['name']?></option>
-            <?php
-           }
-           ?>
-          </select>
-        </td>
-        <td>
-
-        </td>
+        <td><?php echo $row['']?></td>
+        <td></td>
+        <td><?php echo $row['']?></td>
+        <td><?php echo $row['']?></td>
+        <td><?php echo $row['']?>min</td>
+        <td><?php echo $row['']?>min</td>
       </tr>
       <?php
       }
