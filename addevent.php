@@ -96,7 +96,7 @@ $result2 = $query2->fetchAll();
         </div>
         <!-- <div class="col-3"> -->
           <form action="index.html" method="post">
-            <div style="margin-top:1em;">Kies de spelers <select class="js-example-basic-multiple" name="players[]" multiple="multiple">
+            <div style="margin-top:1em;">Kies de spelers <select class="js-example-basic-multiple form-control" name="players[]" multiple="multiple">
               <?php
               foreach ($result2 as $row) {
               ?>
@@ -105,8 +105,8 @@ $result2 = $query2->fetchAll();
               }
               ?>
             </select> </div>
-            <div style="margin-top:1em;">Vul in een start tijd <input style="float:right;" type="time" name="chosentime" value=""></div>
-            <div style="margin-top:1em;">Kies een presentator <select style="float:right;" class="" name="chosenpresenter">
+            <div style="margin-top:1em;">Vul in een start tijd <input class="form-control" style="float:right;" type="time" name="chosentime" value=""></div>
+            <div style="margin-top:1em;">Kies een presentator <select class="form-control" style="float:right;" name="chosenpresenter">
                  <?php
                  foreach ($result2 as $row) {
                  ?>
