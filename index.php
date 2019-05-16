@@ -23,13 +23,24 @@ $query->execute();
 $result = $query->fetchAll();
 
 
-$sql2 = 'SELECT * FROM planning ORDER BY start_time DESC';
+$sql2 = 'SELECT * FROM planning ORDER BY start_time ASC';
 $query2 = $conn->prepare($sql2);
 $query2->execute();
 
 $result2 = $query2->fetchAll();
 
-// var_dump($result2);
+
+// PROBEERSEL OM DE GOED NAAM TE WEERGEVEN OP DE PLANNING PAGINA
+$sql3 = 'SELECT * FROM games WHERE id = :game_id';
+$query3 = $conn->prepare($sql3);
+$query3->bindParam(':game_id', $result2['game_id']);
+$query3->execute();
+
+$result3 = $query3->fetch();
+
+var_dump($result3);
+
+
 
 ?>
 
@@ -61,25 +72,25 @@ $result2 = $query2->fetchAll();
   </div>
 
   <div class="container">
-    <table border="1" class="text-center">
+    <table width="1100" border="1" class="text-center">
       <tr>
         <th>Game</th>
-        <th>Start Time</th>
-        <th>Duration</th>
-        <th>Players</th>
-        <th>Presentor</th>
+        <th>Start Tijd</th>
+        <th>Duratie</th>
+        <th>Spelers</th>
+        <th>Presentator</th>
       </tr>
       <?php
       foreach ($result2 as $row) {
       ?>
       <tr>
-        <td><?php echo $row['']?></td>
-        <td><?php echo $row['start_time']?></td>
-        <td><?php echo $row['duration']?> min</td>
-        <td><?php echo $row['player']?></td>
-        <td><?php echo $row['presentor']?></td>
-        <td> <a href="planningupdate.php?id=<?php echo $row['id'] ?>">Bewerken</a></td>
-        <td> <a href="planningdelete.php?id=<?php echo $row['id'] ?>">Verwijderen</a></td>
+        <td><?php echo $row['game_id'];?></td>
+        <td><?php echo $row['start_time'];?></td>
+        <td><?php echo $row['duration'];?> min</td>
+        <td><?php echo $row['player'];?>,</td>
+        <td><?php echo $row['presentor'];?></td>
+        <td> <a href="planningupdate.php?id=<?php echo $row['id'];?>">Bewerken</a></td>
+        <td> <a href="planningdelete.php?id=<?php echo $row['id'];?>">Verwijderen</a></td>
       </tr>
       <?php
       }

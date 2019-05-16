@@ -24,9 +24,7 @@ $query->execute();
 $result = $query->fetchAll();
 // var_dump($result);
 
-$count = 'SELECT COUNT(id) FROM games';
-$querycount = $conn->prepare($count);
-$querycount->execute();
+
 
 ?>
 

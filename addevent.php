@@ -20,11 +20,10 @@ catch(PDOException $e)
 $sql = 'SELECT * FROM games WHERE id =:id';
 $query = $conn->prepare($sql);
 $query->bindParam(':id', $_GET['gameid']);
-
 $query->execute();
 
 $result = $query->fetch();
- // var_dump($result);
+// var_dump($result);
 
 
 $sql2 = 'SELECT * FROM players';
@@ -32,18 +31,28 @@ $query2 = $conn->prepare($sql2);
 $query2->execute();
 
 $result2 = $query2->fetchAll();
+// var_dump($result2);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $stmt = $conn->prepare('INSERT INTO planning (start_time, duration, presentor, player, game_id) VALUES (:start_time, :duration, :presentor, :player, :game_id)');
 
   $stmt->bindParam(':start_time', $start_time);
+  $stmt->bindParam(':duration', $duration);
   $stmt->bindParam(':presentor', $presentor);
   $stmt->bindParam(':player', $player);
+  $stmt->bindParam(':game_id', $game_id);
 
   $start_time =   $_POST['start_time'];
+  $duration =     $_POST['duration'];
   $presentor =    $_POST['presentor'];
-  $player =       serialize($_POST['player[]']);
+  $player =       json_encode($_POST['player']);
+  // $player =       serialize($_POST['player[]']);
+  $game_id =      $_POST['game_id'];
+
+  // var_dump($player);
+  // var_dump($presentor);
 
   $stmt->execute();
 
@@ -73,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </body>
 </html>
 
-<?php header('Refresh:1; url=players.php'); }else{
+<?php header('Refresh:1; url=index.php'); }else{
 
 ?>
 
@@ -135,24 +144,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-" class="col-" style="width:100px; margin:1em 1em 0 0;">
 
         </div>
-        <!-- <div class="col-3"> -->
+        <div class="col-3">
           <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+            <input type="hidden" name="game_id" value="<?php echo $result['id']; ?>">
+            <input type="hidden" name="duration" value="<?php echo $result['play_minutes']+$result['explain_minutes']; ?>">
             <div style="margin-top:1em;">Kies de spelers <select class="js-example-basic-multiple form-control" name="player[]" multiple="multiple">
               <?php
               foreach ($result2 as $row) {
               ?>
-              <option value=""><?php echo $row['first_name']?> <?php echo $row['last_name']?></option>
+              <option value=" <?php echo $row['first_name']?> <?php echo $row['last_name']?>">
+
+                <?php echo $row['first_name']?> <?php echo $row['last_name']?>
+
+              </option>
+
               <?php
               }
               ?>
             </select> </div>
-            <div style="margin-top:1em;">Vul in een start tijd <input class="form-control" style="float:right;" type="time" name="start_time" value=""></div>
+            <div style="margin-top:1em;">Vul in een start tijd <input class="form-control" style="float:right;" type="time" name="start_time"></div>
             <div style="margin-top:1em;">Kies een presentator <select class="form-control" style="float:right;" name="presentor">
                  <?php
                  foreach ($result2 as $row) {
                  ?>
 
-                 <option value=""><?php if ($row['isTutor'] == '1') {
+                 <option value="<?php echo $row['first_name']?> <?php echo $row['last_name'];?>">
+
+                   <?php if ($row['isTutor'] == '1') {
                    echo $row['first_name']?> <?php echo $row['last_name'];
                  }else{
                    echo null;
