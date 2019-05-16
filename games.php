@@ -17,7 +17,7 @@ catch(PDOException $e)
   //echo "Connection failed: " . $e->getMessage();
 }
 
-$sql = 'SELECT * FROM games';
+$sql = 'SELECT * FROM games ORDER BY name ASC';
 $query = $conn->prepare($sql);
 $query->execute();
 
@@ -66,7 +66,19 @@ $querycount->execute();
   </div>
 </div> -->
 
+<div class="jumbotron jumbotron-fluid" style="height:225px; padding-top:24px;">
+  <div class="container">
+    <h1 class="display-4 text-center">Games</h1>
+    <p class="lead text-center">Door op de naam van het spel te klikken kunt u beginnnen
+      met het toe voegen van de game tot de planning.
+    </p>
+  </div>
+</div>
+
   <div class="container-fluid">
+
+    <p><a href="addgame.php"><button type="button" class="btn btn-secondary btn-lg">Game Toevoegen +</button></a></p>
+
     <table border="1">
       <tr class="text-center">
         <th>Name</th>
@@ -90,8 +102,8 @@ $querycount->execute();
         <td><?php echo $row['skills']?></td>
         <td><?php echo $row['min_players']?></td>
         <td><?php echo $row['max_players']?></td>
-        <td><?php echo $row['play_minutes']?>min</td>
-        <td><?php echo $row['explain_minutes']?>min</td>
+        <td><?php echo $row['play_minutes']?> min</td>
+        <td><?php echo $row['explain_minutes']?> min</td>
       </tr>
       <?php
       }

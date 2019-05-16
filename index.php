@@ -20,22 +20,16 @@ catch(PDOException $e)
 $sql = 'SELECT * FROM games';
 $query = $conn->prepare($sql);
 $query->execute();
-
 $result = $query->fetchAll();
-// var_dump($result);
 
 
-$sql2 = 'SELECT * FROM players';
+$sql2 = 'SELECT * FROM planning ORDER BY start_time DESC';
 $query2 = $conn->prepare($sql2);
 $query2->execute();
 
 $result2 = $query2->fetchAll();
 
-$sql3 = 'SELECT * FROM planning';
-$query3 = $conn->prepare($sql3);
-$query3->execute();
-
-$result3 = $query3->fetchAll();
+// var_dump($result2);
 
 ?>
 
@@ -59,11 +53,10 @@ $result3 = $query3->fetchAll();
   <div class="jumbotron jumbotron-fluid" style="height:225px; padding-top:24px;">
     <div class="container">
       <h1 class="display-4 text-center">Planningtool</h1>
-      <p class="lead">Hier kunt u de planning maken.
+      <p class="lead">Hier komt uw planning te staan.
         Wilt u uitgebreidere informatie over de te kiezen games, spelers en presentators?
         Klikt u dan op de bovenstaande knop genaamd "Content".
-        De link "Content Creator", onder: "Content", brengt u naar een pagina waar u zelf
-        Games, Spelers en Presentators kunt toevoegen.</p>
+      </p>
     </div>
   </div>
 
@@ -77,14 +70,16 @@ $result3 = $query3->fetchAll();
         <th>Presentor</th>
       </tr>
       <?php
-      foreach ($result3 as $row) {
+      foreach ($result2 as $row) {
       ?>
       <tr>
         <td><?php echo $row['']?></td>
-        <td><?php echo $row['']?></td>
-        <td><?php echo $row['']?> min</td>
-        <td><?php echo $row['']?></td>
-        <td><?php echo $row['']?></td>
+        <td><?php echo $row['start_time']?></td>
+        <td><?php echo $row['duration']?> min</td>
+        <td><?php echo $row['player']?></td>
+        <td><?php echo $row['presentor']?></td>
+        <td> <a href="planningupdate.php?id=<?php echo $row['id'] ?>">Bewerken</a></td>
+        <td> <a href="planningdelete.php?id=<?php echo $row['id'] ?>">Verwijderen</a></td>
       </tr>
       <?php
       }

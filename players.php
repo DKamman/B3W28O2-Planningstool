@@ -17,11 +17,12 @@ catch(PDOException $e)
   //echo "Connection failed: " . $e->getMessage();
 }
 
-$sql = 'SELECT * FROM players';
+$sql = 'SELECT * FROM players ORDER BY last_name ASC';
 $query = $conn->prepare($sql);
 $query->execute();
 
 $result = $query->fetchAll();
+
 // var_dump($result);
 
 ?>
@@ -37,24 +38,42 @@ $result = $query->fetchAll();
     <title>Players</title>
   </head>
   <body>
+
     <?php
     include "inc/navbar.html";
     ?>
 
-    <p>This is the players page</p>
+    <div class="jumbotron jumbotron-fluid" style="height:225px; padding-top:24px;">
+      <div class="container">
+        <h1 class="display-4 text-center">Spelers</h1>
+        <p class="lead text-center">Hier staan alle spelers op een rij en kunt u nieuwe spelers toevoegen.
+        </p>
+      </div>
+    </div>
 
-    <div class="container-fluid">
+    <div class="container">
+
+      <p><a href="addplayer.php"><button type="button" class="btn btn-secondary btn-lg">Speler Toevoegen +</button></a></p>
+
       <table border="1">
         <tr class="text-center">
           <th>Name</th>
           <th>Age</th>
+          <th>Presentator</th>
         </tr>
         <?php
         foreach ($result as $row) {
         ?>
         <tr>
-          <td><?php echo $row['name']?></td>
+          <td><?php echo $row['first_name']?> <?php echo $row['last_name']?></td>
           <td><?php echo $row['age']?></td>
+          <td><?php if ($row['isTutor'] == '1') {
+            echo 'Ja';
+          }else{
+            echo 'Nee';
+          } ?></td>
+          <td> <a href="playerupdate.php?id=<?php echo $row['id'] ?>">Bewerken</a></td>
+          <td> <a href="playerdelete.php?id=<?php echo $row['id'] ?>">Verwijderen</a></td>
         </tr>
         <?php
         }
