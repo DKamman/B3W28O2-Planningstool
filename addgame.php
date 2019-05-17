@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <input type="hidden" name="new" value="1">
 
-      <label for="gameimage">Afbeelding</label>
+      <label for="gameimage">Afbeelding (nog niet werkend)</label>
       <input class="form-control" type="file" name="image">
 
       <label for="gamename">Naam</label>
