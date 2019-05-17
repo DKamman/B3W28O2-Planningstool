@@ -47,8 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $start_time =   $_POST['start_time'];
   $duration =     $_POST['duration'];
   $presentor =    $_POST['presentor'];
-  $player =       json_encode($_POST['player']);
+  // $player =       json_encode($_POST['player']);
   // $player =       serialize($_POST['player[]']);
+  $player =       implode( ', ', $_POST['player']);
   $game_id =      $_POST['game_id'];
 
   // var_dump($player);
@@ -73,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <body>
 
   <div class="container">
-    <h1>Game is aan planning toegevoegd</h1>
+    <h1>Game is aan de planning toegevoegd</h1>
   </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

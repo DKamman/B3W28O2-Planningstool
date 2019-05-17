@@ -17,30 +17,13 @@ catch(PDOException $e)
   //echo "Connection failed: " . $e->getMessage();
 }
 
-$sql = 'SELECT * FROM games';
-$query = $conn->prepare($sql);
-$query->execute();
-$result = $query->fetchAll();
-
-
-$sql2 = 'SELECT * FROM planning ORDER BY start_time ASC';
-$query2 = $conn->prepare($sql2);
-$query2->execute();
-
-$result2 = $query2->fetchAll();
-
-
-// PROBEERSEL OM DE GOED NAAM TE WEERGEVEN OP DE PLANNING PAGINA
-$sql3 = 'SELECT * FROM games WHERE id = :game_id';
+$sql3 = 'SELECT planning.*, games.name
+          FROM planning
+          INNER JOIN games
+          ON planning.game_id=games.id ORDER BY start_time ASC' ;
 $query3 = $conn->prepare($sql3);
-$query3->bindParam(':game_id', $result2['game_id']);
 $query3->execute();
-
-$result3 = $query3->fetch();
-
-var_dump($result3);
-
-
+$result3 = $query3->fetchAll();
 
 ?>
 
@@ -81,13 +64,13 @@ var_dump($result3);
         <th>Presentator</th>
       </tr>
       <?php
-      foreach ($result2 as $row) {
+      foreach ($result3 as $row) {
       ?>
       <tr>
-        <td><?php echo $row['game_id'];?></td>
+        <td><?php echo $row['name'];?></td>
         <td><?php echo $row['start_time'];?></td>
         <td><?php echo $row['duration'];?> min</td>
-        <td><?php echo $row['player'];?>,</td>
+        <td><?php echo $row['player'];?></td>
         <td><?php echo $row['presentor'];?></td>
         <td> <a href="planningupdate.php?id=<?php echo $row['id'];?>">Bewerken</a></td>
         <td> <a href="planningdelete.php?id=<?php echo $row['id'];?>">Verwijderen</a></td>

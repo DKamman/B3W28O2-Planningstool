@@ -17,20 +17,18 @@ catch(PDOException $e)
   echo "Connection failed: " . $e->getMessage();
 }
 
+$sql = 'SELECT * FROM players WHERE id =:id';
+$query = $conn->prepare($sql);
+$query->bindParam(':id', $_GET['id']);
+$query->execute();
+$result = $query->fetch();
+// var_dump($result);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $stmt = $conn->prepare('INSERT INTO players (first_name, last_name, age, isTutor) VALUES (:first_name, :last_name, :age, :isTutor)');
-
-  $stmt->bindParam(':first_name', $first_name);
-  $stmt->bindParam(':last_name', $last_name);
-  $stmt->bindParam(':age', $age);
-  $stmt->bindParam(':isTutor', $isTutor);
-
-  $first_name =   $_POST['first_name'];
-  $last_name =    $_POST['last_name'];
-  $age =          $_POST['age'];
-  $isTutor =      $_POST['isTutor'];
-
+  $stmt = $conn->prepare('DELETE FROM players WHERE id = :id');
+  $stmt->bindParam(':id', $id);
+  $id = $_POST['id'];
   $stmt->execute();
 
   $conn = null;
@@ -50,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <body>
 
     <div class="container">
-      <h1>Speler Toegevoegd</h1>
+      <h1>Speler Verwijderd</h1>
     </div>
 
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -76,37 +74,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <body>
 
   <div class="container">
-    <h1>Voeg een speler toe</h1>
+    <h1>Weet u zeker dat u "<?php echo $result['first_name'];?> <?php echo $result['last_name'];?>" uit de lijst wilt verwijderen?</h1>
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-    <div class="form-group">
-
-      <label for="firstname">Voornaam</label>
-      <input class="form-control" type="text" name="first_name" required>
-
-      <label for="lastname">Achternaam</label>
-      <input class="form-control" type="text" name="last_name" required>
-
-      <label for="age">Leeftijd</label>
-      <select class="form-control" name="age" required>
-        <?php for ($i=10; $i <= 99 ; $i++) { ?>
-          // code...
-          <option value="<?php echo $i?>"><?php echo $i?></option>
-        <?php } ?>
-      </select>
-
-      <label for="presentor">Presentator</label>
-      <select class="form-control" name="isTutor" required>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
-      </select>
-
+      <input type="hidden" name="id" value="<?php echo $result['id'];?>">
       <div style="margin-top:1em;">
-        <a href="players.php"><button type="button" class="btn btn-danger">Annuleren</button></a>
-        <button type="submit" class="btn btn-primary">Opslaan</button>
+        <a href="players.php"><button type="button" class="btn btn-primary">Annuleren</button></a>
+        <button type="submit" class="btn btn-danger">Verwijderen</button>
       </div>
-
-    </div>
     </form>
+  </div>
   </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

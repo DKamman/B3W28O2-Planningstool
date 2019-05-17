@@ -96,8 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <label for="presentor">Presentator</label>
       <select class="form-control" name="isTutor" required>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="0">Nee</option>
+        <option value="1">Ja</option>
       </select>
 
       <div style="margin-top:1em;">
