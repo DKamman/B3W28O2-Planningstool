@@ -17,7 +17,7 @@ catch(PDOException $e)
   //echo "Connection failed: " . $e->getMessage();
 }
 
-$sql3 = 'SELECT planning.*, games.name
+$sql3 = 'SELECT planning.*, games.name, games.image
           FROM planning
           INNER JOIN games
           ON planning.game_id=games.id ORDER BY start_time ASC' ;
@@ -72,8 +72,9 @@ $result3 = $query3->fetchAll();
         <td><?php echo $row['duration'];?> min</td>
         <td><?php echo $row['player'];?></td>
         <td><?php echo $row['presentor'];?></td>
-        <td> <a href="planningupdate.php?id=<?php echo $row['id'];?>">Bewerken</a></td>
-        <td> <a href="planningdelete.php?id=<?php echo $row['id'];?>">Verwijderen</a></td>
+        <td><a href="info.php?game_id=<?php echo $row['game_id'];?>"><button type="button" class="btn btn-primary">Meer info</button></a></td>
+        <td><a href="planningupdate.php?id=<?php echo $row['id'];?>">Bewerken</a></td>
+        <td><a href="planningdelete.php?id=<?php echo $row['id'];?>">Verwijderen</a></td>
       </tr>
       <?php
       }

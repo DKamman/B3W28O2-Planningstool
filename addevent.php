@@ -26,7 +26,7 @@ $result = $query->fetch();
 // var_dump($result);
 
 
-$sql2 = 'SELECT * FROM players';
+$sql2 = 'SELECT * FROM players ORDER BY last_name ASC';
 $query2 = $conn->prepare($sql2);
 $query2->execute();
 
