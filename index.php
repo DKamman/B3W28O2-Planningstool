@@ -55,7 +55,7 @@ $result3 = $query3->fetchAll();
   </div>
 
   <div class="container">
-    <table width="1100" border="1" class="text-center">
+    <table width="1100" class="text-center">
       <tr>
         <th>Game</th>
         <th>Start Tijd</th>

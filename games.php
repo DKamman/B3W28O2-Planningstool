@@ -17,7 +17,7 @@ catch(PDOException $e)
   //echo "Connection failed: " . $e->getMessage();
 }
 
-$sql = 'SELECT * FROM games ORDER BY name ASC';
+$sql = 'SELECT * FROM games ORDER BY new DESC, name ASC';
 $query = $conn->prepare($sql);
 $query->execute();
 
@@ -102,6 +102,12 @@ $result = $query->fetchAll();
         <td><?php echo $row['max_players']?></td>
         <td><?php echo $row['play_minutes']?> min</td>
         <td><?php echo $row['explain_minutes']?> min</td>
+
+        <?php if ($row['new'] == '1') { ?>
+          <td> <a href="gameupdate.php?id=<?php echo $row['id'];?>">Bewerken</a></td>
+          <td> <a href="gamedelete.php?id=<?php echo $row['id'];?>">Verwijderen</a></td>
+        <?php } ?>
+
       </tr>
       <?php
       }

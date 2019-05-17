@@ -55,7 +55,7 @@ $result = $query->fetchAll();
 
       <p><a href="addplayer.php"><button type="button" class="btn btn-secondary btn-lg">Speler Toevoegen +</button></a></p>
 
-      <table width="1100" border="1" class="text-center">
+      <table width="1100" class="text-center">
         <tr>
           <th>Name</th>
           <th>Age</th>

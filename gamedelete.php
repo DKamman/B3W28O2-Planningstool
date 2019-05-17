@@ -17,29 +17,18 @@ catch(PDOException $e)
   echo "Connection failed: " . $e->getMessage();
 }
 
+$sql = 'SELECT * FROM games WHERE id =:id';
+$query = $conn->prepare($sql);
+$query->bindParam(':id', $_GET['id']);
+$query->execute();
+$result = $query->fetch();
+// var_dump($result);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $stmt = $conn->prepare('INSERT INTO games (name, image, description, min_players, max_players, play_minutes, explain_minutes, new)
-                          VALUES (:name, :image, :description, :min_players, :max_players, :play_minutes, :explain_minutes, :new)');
-
-  $stmt->bindParam(':name', $name);
-  $stmt->bindParam(':image', $image);
-  $stmt->bindParam(':description', $description);
-  $stmt->bindParam(':min_players', $min_players);
-  $stmt->bindParam(':max_players', $max_players);
-  $stmt->bindParam(':play_minutes', $play_minutes);
-  $stmt->bindParam(':explain_minutes', $explain_minutes);
-  $stmt->bindParam(':new', $new);
-
-  $name =             $_POST['name'];
-  $image =            $_POST['image'];
-  $description =      $_POST['description'];
-  $min_players =      $_POST['min_players'];
-  $max_players =      $_POST['max_players'];
-  $play_minutes =     $_POST['play_minutes'];
-  $explain_minutes =  $_POST['explain_minutes'];
-  $new =              $_POST['new'];
-
+  $stmt = $conn->prepare('DELETE FROM games WHERE id = :id');
+  $stmt->bindParam(':id', $id);
+  $id = $_POST['id'];
   $stmt->execute();
 
   $conn = null;
@@ -59,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <body>
 
     <div class="container">
-      <h1>Spel Toegevoegd</h1>
+      <h1>Spel Verwijderd</h1>
     </div>
 
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -85,56 +74,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <body>
 
   <div class="container">
-    <h1>Voeg een spel toe</h1>
-    <form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-    <div class="form-group">
-
-      <input type="hidden" name="new" value="1">
-
-      <label for="gameimage">Afbeelding</label>
-      <input class="form-control" type="file" name="image">
-
-      <label for="gamename">Naam</label>
-      <input class="form-control" type="text" name="name" required>
-
-      <label for="gamedescription">Beschrijving</label>
-      <input class="form-control" type="text" name="description" required>
-
-      <label for="age">Minimale spelers</label>
-      <select class="form-control" name="min_players" required>
-        <?php for ($i=1; $i <= 10 ; $i++) { ?>
-          <option value="<?php echo $i?>"><?php echo $i?></option>
-        <?php } ?>
-      </select>
-
-      <label for="age">Maximale spelers</label>
-      <select class="form-control" name="max_players" required>
-        <?php for ($i=2; $i <= 99 ; $i++) { ?>
-          <option value="<?php echo $i?>"><?php echo $i?></option>
-        <?php } ?>
-      </select>
-
-      <label for="age">Speel duratie (in minuten)</label>
-      <select class="form-control" name="play_minutes" required>
-        <?php for ($i=1; $i <= 60 ; $i++) { ?>
-          <option value="<?php echo $i?>"><?php echo $i?></option>
-        <?php } ?>
-      </select>
-
-      <label for="age">Presentatie duratie (in minuten)</label>
-      <select class="form-control" name="explain_minutes" required>
-        <?php for ($i=1; $i <= 60 ; $i++) { ?>
-          <option value="<?php echo $i?>"><?php echo $i?></option>
-        <?php } ?>
-      </select>
-
+    <h1>Weet u zeker dat u "<?php echo $result['name'];?>" uit de lijst wilt verwijderen?</h1>
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+      <input type="hidden" name="id" value="<?php echo $result['id'];?>">
       <div style="margin-top:1em;">
-        <a href="games.php"><button type="button" class="btn btn-danger">Annuleren</button></a>
-        <button type="submit" class="btn btn-primary">Opslaan</button>
+        <a href="players.php"><button type="button" class="btn btn-primary">Annuleren</button></a>
+        <button type="submit" class="btn btn-danger">Verwijderen</button>
       </div>
-
-    </div>
     </form>
+  </div>
   </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
